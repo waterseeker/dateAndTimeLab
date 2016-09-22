@@ -1,11 +1,22 @@
 var library = (function() {
-  return {
+var currentDate = new Date;
+var monthNumber = currentDate.getMonth() +1;
+var monthDblDigit = ""function(){
+	if (monthNumber < 10) {
+		monthDblDigit = "0" + monthNumber;
+	}
+	else {
+		monthDblDigit = monthNumber;
+}
+
+	return {
 	TimeStamp: (function(){
    	  return {
 		UnixTimestamp: function(){},
 		UnixMillisecond: function(){}
 	  }
 	})(),
+	
 	Local: (function(){
 	  return {
 		Time: (function() {
@@ -14,6 +25,7 @@ var library = (function() {
 	   	    WithOutSeconds: function() {}
 		  }
 		})(),
+		
 		MDY: (function(){
 	  	  return {
 		    Numeral: function(){},
@@ -22,18 +34,23 @@ var library = (function() {
 		  })(),
 		}
 	})(),
+	
 	Second: (function(){
 		return{
 			Second: function(){},
-			DblDigit: function(){}
+			DblDigit: function(){
+		
+			}
 		}
 	})(),
+	
 	Minute: (function(){
 		return{
 			Minute: function(){},
 			DblDigit: function(){}
 		}
 	})(),
+	
 	Hour: (function(){
 		return {
 			TwentyFourHour: function() {},
@@ -46,6 +63,7 @@ var library = (function() {
 			})()
 		}
 	})(),
+
 	Week: (function(){
 		return {
 			DayOfWeek: function(){},
@@ -54,6 +72,7 @@ var library = (function() {
 			WeekOfYear: function(){}
 		}
 	})(),
+	
 	Month: (function(){
 		return {
 			DateOfMonth: (function(){
@@ -63,12 +82,17 @@ var library = (function() {
 					DateDblDigit: function(){}
 				}
 			})(),
-			MonthNumber: function(){},
-			MonthNumberDblDigit: function(){},
+			MonthNumber: function(){
+				return monthNumber.toString();
+			},
+			MonthNumberDblDigit: function(){
+				return monthDblDigit.toString();
+			},
 			AbrOfCurrentMonth: function(){},
 			CurrentMonth: function(){}
 		}
 	})(),
+	
 	Year: (function(){
 		return {
 			DayOfYear: (function(){
