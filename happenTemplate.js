@@ -1,19 +1,27 @@
 var library = (function() {
 var currentDate = new Date;
 var monthNumber = currentDate.getMonth() +1;
-var monthDblDigit = ""function(){
+var monthDblDigit = function(){
 	if (monthNumber < 10) {
-		monthDblDigit = "0" + monthNumber;
+		return ("0" + monthNumber);
+	}  else {
+		return monthNumber;
 	}
-	else {
-		monthDblDigit = monthNumber;
-}
+	}();
+var abrMonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+var abrOfCurrentMonth = (abrMonthArray[currentDate.getMonth()]);
 
 	return {
 	TimeStamp: (function(){
-   	  return {
-		UnixTimestamp: function(){},
-		UnixMillisecond: function(){}
+		return {
+		UnixTimestamp: function(){
+
+		},
+		UnixMillisecond: function(){
+
+		}
 	  }
 	})(),
 	
@@ -88,7 +96,9 @@ var monthDblDigit = ""function(){
 			MonthNumberDblDigit: function(){
 				return monthDblDigit.toString();
 			},
-			AbrOfCurrentMonth: function(){},
+			AbrOfCurrentMonth: function(){
+				return abrOfCurrentMonth.toString();
+			},
 			CurrentMonth: function(){}
 		}
 	})(),
@@ -106,5 +116,5 @@ var monthDblDigit = ""function(){
 		}
 	})(),
 	Defaults: function(){}
-  }
+	}
 })();
