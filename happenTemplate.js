@@ -1,5 +1,5 @@
 var library = (function() {
-var currentDate = new Date;
+var currentDate = new Date();
 var monthNumber = currentDate.getMonth() +1;
 var monthDblDigit = function(){
 	if (monthNumber < 10) {
@@ -12,6 +12,28 @@ var abrMonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 var abrOfCurrentMonth = (abrMonthArray[currentDate.getMonth()]);
+var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var currentMonth = (monthNames[currentDate.getMonth()]);
+var dayNumber = currentDate.getDate();
+
+var ordinalDay = function (){
+	if (dayNumber>3 && dayNumber < 21) return "th";
+
+	else if ((dayNumber % 10) == 1) return "st";
+	else if ((dayNumber % 10) == 2) return "nd";
+	else if ((dayNumber % 10) == 3) return "rd";
+	else return "th";
+
+	}();
+
+var dayDblDigit = function(){
+	if (dayNumber < 10) {
+		return ("0" + dayNumber);
+	} else {
+		return dayNumber;
+	}
+}();
+
 
 	return {
 	TimeStamp: (function(){
@@ -85,9 +107,15 @@ var abrOfCurrentMonth = (abrMonthArray[currentDate.getMonth()]);
 		return {
 			DateOfMonth: (function(){
 				return {
-					Numeral: function(){},
-					Ordinal: function(){},
-					DateDblDigit: function(){}
+					Numeral: function(){
+						return currentDate.getDate().toString();
+					},
+					Ordinal: function(){
+						return (dayNumber + ordinalDay).toString();
+					},
+					DateDblDigit: function(){
+						return dayDblDigit.toString();
+					}
 				}
 			})(),
 			MonthNumber: function(){
@@ -99,7 +127,9 @@ var abrOfCurrentMonth = (abrMonthArray[currentDate.getMonth()]);
 			AbrOfCurrentMonth: function(){
 				return abrOfCurrentMonth.toString();
 			},
-			CurrentMonth: function(){}
+			CurrentMonth: function(){
+				return currentMonth.toString();
+			}
 		}
 	})(),
 	
