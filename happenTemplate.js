@@ -88,6 +88,11 @@ var dayDblDigit = function(){
 //military Time
 var twentyFourHour = currentDate.getHours();
 
+var timestmp = new Date().setFullYear(new Date().getFullYear(), 0, 1);
+var yearFirstDay = Math.floor(timestmp / 86400000);
+var today = Math.ceil((new Date().getTime()) / 86400000);
+var dayOfYear = today - yearFirstDay;
+
 //12 hour time
 var twelveHour = function() {
 				if (twentyFourHour <= 12) {
@@ -115,12 +120,13 @@ var isLeapYear = function() {
     return ((currentYear % 100) != 0 || (currentYear % 400) == 0);
 }();
 
-// // Get Day of Year
-// var getDayOfYear = function() {
-//     var dayOfYear = dayCount[monthNumberZeroIndex] + dayNumber;
-//     if(monthNumberZeroIndex > 1 && currentYear.isLeapYear()) dayOfYear++;
-//     return dayOfYear;
-// }();
+// //get week of the year
+// var getWeek = function() {
+//     var onejan = new Date(this.getFullYear(),0,1);
+//     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+// };
+
+
 
 
 	return {
@@ -228,7 +234,11 @@ var isLeapYear = function() {
 			FirstTwoOfWeek: function(){
 				return dayOfWeek.substring (0,2);
 			},
-			WeekOfYear: function(){}
+			WeekOfYear: function(){
+				// return getWeek().toString();
+				return (dayOfYear.getDay()+1/7).toString();
+			}
+			
 		}
 	})(),
 	
