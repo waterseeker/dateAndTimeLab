@@ -24,6 +24,22 @@ var monthNumberZeroIndex = currentDate.getMonth();
 var abrMonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// add 0 to a number that's less than 10'
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+};
+
+
+var hour = addZero(currentDate.getHours());
+var minute = addZero(currentDate.getMinutes());
+var second = addZero(currentDate.getSeconds());
+
+
+var dateTime = Date.now();
+
 //get the abbreviated month name
 var abrOfCurrentMonth = (abrMonthArray[currentDate.getMonth()]);
 
@@ -72,6 +88,15 @@ var dayDblDigit = function(){
 //military Time
 var twentyFourHour = currentDate.getHours();
 
+//12 hour time
+var twelveHour = function() {
+				if (twentyFourHour <= 12) {
+					return twentyFourHour;
+				} else {
+					return (twentyFourHour % 12);
+				}
+}();
+
 //return am or pm
 var amPm = function (){
 	if (twentyFourHour >= 12) {
@@ -82,7 +107,7 @@ var amPm = function (){
 }();
 
 //get seconds
-var seconds = Math.round(currentDate / 1000);
+var seconds = currentDate.getSeconds();
 
 // Check to see if it's a leap year'
 var isLeapYear = function() {
@@ -102,10 +127,11 @@ var isLeapYear = function() {
 	TimeStamp: (function(){
 		return {
 		UnixTimestamp: function(){
-
+			var timeStamp = Math.floor(dateTime / 1000);
+			return timeStamp.toString();
 		},
 		UnixMillisecond: function(){
-
+			return new Date().getTime();
 		}
 	  }
 	})(),
@@ -114,8 +140,12 @@ var isLeapYear = function() {
 	  return {
 		Time: (function() {
 		  return {
-	  	    WithSeconds: function(){},
-	   	    WithOutSeconds: function() {}
+	  	    WithSeconds: function(){
+						return (twelveHour + ":" + minute + ":" + second) + " " + (amPm.toUpperCase().toString()).toString();
+					},
+	   	    WithOutSeconds: function() {
+						return (twelveHour + ":" + minute) + " " + (amPm.toUpperCase().toString()).toString();
+					 }
 		  }
 		})(),
 		
@@ -134,15 +164,27 @@ var isLeapYear = function() {
 				 return seconds.toString();
 			},
 			DblDigit: function(){
-		
+				 if (seconds < 10) {
+					 return ("0" + seconds).toString();
+				 } else {
+					 return seconds.toString();
+				 }
 			}
 		}
 	})(),
 	
 	Minute: (function(){
 		return{
-			Minute: function(){},
-			DblDigit: function(){}
+			Minute: function(){
+				return currentDate.getMinutes().toString();
+			},
+			DblDigit: function(){
+				if (currentDate.getMinutes() < 10) {
+					return ("0" + (currentDate.getMinutes())).toString();
+				} else {
+					return (currentDate.getMinutes()).toString();
+				}
+			}
 		}
 	})(),
 	
@@ -151,7 +193,13 @@ var isLeapYear = function() {
 			TwentyFourHour: function() {
 				return twentyFourHour.toString();
 			},
-			TwelveHour: function() {},
+			TwelveHour: function() {
+				if (twentyFourHour <= 12) {
+					return twentyFourHour.toString();
+				} else {
+					return (twentyFourHour % 12).toString();
+				}
+			},
 			AMPM: (function() {
 				return {
 					UpperCase: function(){
