@@ -151,8 +151,12 @@ var isLeapYear = function() {
 		
 		MDY: (function(){
 	  	  return {
-		    Numeral: function(){},
-			Name: function(){}
+		    Numeral: function(){
+				return (monthNumber + "/" + dayDblDigit + "/" + currentYear).toString();
+				},
+			Name: function(){
+				return (currentMonth + " " + dayDblDigit + "," + " " + currentYear).toString();
+			}
 		  }
 		  })(),
 		}
@@ -276,6 +280,8 @@ var isLeapYear = function() {
 			}
 		}
 	})(),
-	Defaults: function(){}
+	Defaults: function(){
+		return (currentYear + "-" + monthDblDigit + "-" + dayDblDigit + "T" + twentyFourHour + ":" + minute + ":" + second).toString();
+	}
 	}
 })();
