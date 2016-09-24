@@ -17,6 +17,8 @@ var monthDblDigit = function(){
 		return monthNumber;
 	}
 	}();
+// get month number on 0 iundex
+var monthNumberZeroIndex = currentDate.getMonth();
 
 //array with month abbreviations
 var abrMonthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -31,8 +33,14 @@ var monthNames = ["January", "February", "March", "April", "May", "June", "July"
 //returns the name of the current month from monthNames
 var currentMonth = (monthNames[currentDate.getMonth()]);
 
-//returns the day of the week
+//gets year number
+var currentYear = currentDate.getFullYear();
+
+//returns the date of the month
 var dayNumber = currentDate.getDate();
+
+//return day number of the week 
+var dayOfWeek = currentDate.getDay();
 
 //puts st, nd, rd, or th on the end of the dayNumber
 var ordinalDay = function (){
@@ -45,6 +53,12 @@ var ordinalDay = function (){
 
 	}();
 
+//array of weekday names
+var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+//get name of the day from dayNames array
+var dayOfWeek = (dayNames[dayOfWeek]);
+
 
 //returns the date in double digit format
 var dayDblDigit = function(){
@@ -55,20 +69,33 @@ var dayDblDigit = function(){
 	}
 }();
 
+//military Time
+var twentyFourHour = currentDate.getHours();
+
+//return am or pm
+var amPm = function (){
+	if (twentyFourHour >= 12) {
+		return ("pm");
+	} else {
+		return ("am");
+	}
+}();
+
+//get seconds
+var seconds = Math.round(currentDate / 1000);
+
 // Check to see if it's a leap year'
 var isLeapYear = function() {
-    var fullYear = currentDate.getFullYear();
-    if((fullYear % 4) != 0) return false;
-    return ((fullYear % 100) != 0 || (fullYear % 400) == 0);
-};
+    if((currentYear % 4) != 0) return false;
+    return ((currentYear % 100) != 0 || (currentYear % 400) == 0);
+}();
 
-// Get Day of Year
-var getDayOfYear = function() {
-    var mn = currentDate.getMonth();
-    var dayOfYear = dayCount[mn] + dn;
-    if(mn > 1 && this.isLeapYear()) dayOfYear++;
-    return dayOfYear;
-};
+// // Get Day of Year
+// var getDayOfYear = function() {
+//     var dayOfYear = dayCount[monthNumberZeroIndex] + dayNumber;
+//     if(monthNumberZeroIndex > 1 && currentYear.isLeapYear()) dayOfYear++;
+//     return dayOfYear;
+// }();
 
 
 	return {
@@ -103,7 +130,9 @@ var getDayOfYear = function() {
 	
 	Second: (function(){
 		return{
-			Second: function(){},
+			Second: function(){
+				 return seconds.toString();
+			},
 			DblDigit: function(){
 		
 			}
@@ -119,12 +148,18 @@ var getDayOfYear = function() {
 	
 	Hour: (function(){
 		return {
-			TwentyFourHour: function() {},
+			TwentyFourHour: function() {
+				return twentyFourHour.toString();
+			},
 			TwelveHour: function() {},
 			AMPM: (function() {
 				return {
-					UpperCase: function(){},
-					LowerCase: function(){}
+					UpperCase: function(){
+						return amPm.toUpperCase().toString();
+					},
+					LowerCase: function(){
+						return amPm.toString();
+					}
 				}
 			})()
 		}
@@ -132,9 +167,15 @@ var getDayOfYear = function() {
 
 	Week: (function(){
 		return {
-			DayOfWeek: function(){},
-			AbrDayOfWeek: function(){},
-			FirstTwoOfWeek: function(){},
+			DayOfWeek: function(){
+				return dayOfWeek.toString();
+			},
+			AbrDayOfWeek: function(){
+				return dayOfWeek.substring (0,3);
+			},
+			FirstTwoOfWeek: function(){
+				return dayOfWeek.substring (0,2);
+			},
 			WeekOfYear: function(){}
 		}
 	})(),
@@ -173,12 +214,18 @@ var getDayOfYear = function() {
 		return {
 			DayOfYear: (function(){
 				return {
-					Numeral: function(){},
+					Numeral: function(){
+						return dayOfYear.toString();
+					},
 					Ordinal: function(){}
 				}
 			})(),
-			YearFull: function(){},
-			YearAbr: function(){}
+			YearFull: function(){
+				return currentYear.toString();
+			},
+			YearAbr: function(){
+				return (currentYear % 100).toString();
+			}
 		}
 	})(),
 	Defaults: function(){}
