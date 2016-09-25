@@ -68,6 +68,7 @@ var ordinalDay = function (){
 	else return "th";
 
 	}();
+ 
 
 //array of weekday names
 var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -120,6 +121,8 @@ var isLeapYear = function() {
     if((currentYear % 4) != 0) return false;
     return ((currentYear % 100) != 0 || (currentYear % 400) == 0);
 }();
+
+
 
 
 	return {
@@ -271,7 +274,9 @@ var isLeapYear = function() {
 					Numeral: function(){
 						return dayOfYear.toString();
 					},
-					Ordinal: function(){}
+					Ordinal: function(){
+						return (dayOfYear + ordinalDay).toString();
+					}
 				}
 			})(),
 			YearFull: function(){
@@ -283,7 +288,7 @@ var isLeapYear = function() {
 		}
 	})(),
 	Defaults: function(){
-		return (currentYear + "-" + monthDblDigit + "-" + dayDblDigit + "T" + twentyFourHour + ":" + minute + ":" + second).toString();
+		return (currentYear + "-" + monthDblDigit + "-" + dayDblDigit + "T" + hour + ":" + minute + ":" + second).toString();
 	}
 	}
 })();
