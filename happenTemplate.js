@@ -121,8 +121,10 @@ var isLeapYear = function() {
     if((currentYear % 4) != 0) return false;
     return ((currentYear % 100) != 0 || (currentYear % 400) == 0);
 }();
+//#30
+ 
 
-
+// ///#30
 
 
 	return {
@@ -231,7 +233,13 @@ var isLeapYear = function() {
 				return dayOfWeek.substring (0,2);
 			},
 			WeekOfYear: function(){
-				return weekNumber.toString();
+				var now = new Date();
+        var start = new Date(now.getFullYear(), 0, 0);
+        var diff = now - start;  
+        var oneDay = 1000 * 60 * 60 * 24;
+        var day = Math.floor(diff / oneDay);
+        return String(Math.round(day / 7));
+                                ;
 			}
 			
 		}
